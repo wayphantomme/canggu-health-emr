@@ -1,65 +1,118 @@
-import Image from "next/image";
+import Link from "next/link";
+import { Geist_Mono } from "next/font/google";
 
-export default function Home() {
+export default function LandingPage() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
+    <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column", background: "var(--paper)" }}>
+      {/* Header */}
+      <header style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        padding: "1rem 2rem",
+        borderBottom: "1px solid var(--line)",
+        background: "var(--surface)"
+      }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+          <div style={{
+            width: "2rem",
+            height: "2rem",
+            background: "var(--sage)",
+            color: "#fff",
+            borderRadius: "4px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            fontFamily: "var(--font-serif)",
+            fontWeight: 700,
+            fontSize: "1.2rem"
+          }}>E</div>
+          <span style={{ fontFamily: "var(--font-serif)", fontWeight: 700, fontSize: "1.25rem", color: "var(--ink)" }}>EMR Klinik</span>
+        </div>
+        <div>
+          <Link href="/login" className="btn btn-primary" style={{ padding: "0.5rem 1.5rem" }}>
+            Login Pegawai
+          </Link>
+        </div>
+      </header>
+
+      {/* Hero Section */}
+      <main style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center" }}>
+        <section style={{
+          textAlign: "center",
+          padding: "5rem 1rem 4rem",
+          maxWidth: "800px",
+          width: "100%"
+        }}>
+          <h1 style={{ fontSize: "3rem", marginBottom: "1.5rem", lineHeight: 1.1, color: "var(--ink)" }}>
+            Rekam Medis Digital,<br/> Bukan Dashboard Startup.
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+          <p style={{ fontSize: "1.125rem", color: "var(--ink-muted)", marginBottom: "2.5rem", lineHeight: 1.6 }}>
+            Sistem rekam medis elektronik terintegrasi yang dirancang khusus untuk alur kerja tenaga medis Indonesia. Dilengkapi dengan laporan otomatis ke SatuSehat Kemenkes.
           </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+          <div style={{ display: "flex", gap: "1rem", justifyContent: "center" }}>
+            <Link href="/login" className="btn btn-primary" style={{ padding: "0.75rem 2rem", fontSize: "1rem" }}>
+              Coba MVP Sekarang
+            </Link>
+          </div>
+        </section>
+
+        {/* Value Propositions */}
+        <section style={{
+          background: "var(--surface)",
+          width: "100%",
+          padding: "4rem 2rem",
+          borderTop: "1px solid var(--line)"
+        }}>
+          <div style={{
+            maxWidth: "1100px",
+            margin: "0 auto",
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+            gap: "2.5rem"
+          }}>
+            {[
+              {
+                icon: "⚡",
+                title: "Desain Padat & Klinis",
+                desc: "Layout bergaya dokumen resmi dengan tabel informasi yang padat (dense). Dirancang untuk mempercepat dokter membaca riwayat pasien."
+              },
+              {
+                icon: "🔗",
+                title: "Terintegrasi SatuSehat",
+                desc: "Seluruh pencatatan encounter, observasi, dan resep secara otomatis disinkronkan dengan server FHIR SatuSehat Kemenkes RI."
+              },
+              {
+                icon: "👥",
+                title: "Satu Platform, Semua Peran",
+                desc: "Akses terspesialisasi untuk Dokter, Perawat, Apoteker, Laboratorium, dan Admin. Setiap staf memiliki antarmuka yang paling relevan dengan pekerjaannya."
+              }
+            ].map((feature, i) => (
+              <div key={i} className="card" style={{ padding: "2rem", border: "1px solid var(--line)", background: "var(--paper)" }}>
+                <div style={{ fontSize: "2.5rem", marginBottom: "1rem" }}>{feature.icon}</div>
+                <h3 style={{ fontSize: "1.25rem", marginBottom: "0.75rem", fontFamily: "var(--font-serif)", color: "var(--ink)" }}>
+                  {feature.title}
+                </h3>
+                <p style={{ color: "var(--ink-muted)", lineHeight: 1.5, fontSize: "0.95rem" }}>
+                  {feature.desc}
+                </p>
+              </div>
+            ))}
+          </div>
+        </section>
       </main>
+
+      {/* Footer */}
+      <footer style={{
+        padding: "2rem",
+        textAlign: "center",
+        borderTop: "1px solid var(--line)",
+        background: "var(--surface)",
+        color: "var(--ink-muted)",
+        fontSize: "0.875rem"
+      }}>
+        <p>&copy; 2026 EMR Klinik Sehat Sejahtera. Sistem Manajemen Rekam Medis Fase 1.</p>
+      </footer>
     </div>
   );
 }
