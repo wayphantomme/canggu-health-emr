@@ -27,7 +27,7 @@ export default function LoginPage() {
         
         {/* Logo / Title */}
         <div style={{ textAlign: "center", marginBottom: "2rem" }}>
-          <h1 style={{ fontSize: "1.75rem", margin: "0 0 0.5rem", color: "var(--sage-deep)" }}>EMR Klinik</h1>
+          <h1 style={{ fontSize: "1.75rem", margin: "0 0 0.5rem", color: "var(--sage-deep)" }}>Electronic Medical Record</h1>
           <p style={{ color: "var(--ink-muted)", fontSize: "0.875rem", margin: 0 }}>
             Sistem Rekam Medis Elektronik Terpadu
           </p>

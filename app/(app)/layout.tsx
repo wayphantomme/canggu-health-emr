@@ -1,5 +1,4 @@
-import Sidebar from "@/app/components/layout/Sidebar";
-import Topbar from "@/app/components/layout/Topbar";
+import ClientAppShell from "@/app/components/layout/ClientAppShell";
 import type { AppUser } from "@/app/lib/types";
 
 // Mock current user — in production this comes from auth session
@@ -18,7 +17,7 @@ function getTitle(pathname: string): string {
   if (pathname.startsWith("/appointment")) return "Appointment";
   if (pathname.startsWith("/encounter")) return "Encounter";
   if (pathname.startsWith("/satusehat")) return "SatuSehat Sync";
-  return "EMR Klinik";
+  return "Electronic Medical Record";
 }
 
 export default function AppLayout({
@@ -27,19 +26,8 @@ export default function AppLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div style={{ display: "flex", minHeight: "100vh", background: "var(--paper)" }}>
-      <Sidebar />
-      <div style={{ flex: 1, display: "flex", flexDirection: "column", minWidth: 0 }}>
-        <TopbarWrapper user={CURRENT_USER} />
-        <main style={{ flex: 1, padding: "1.5rem", overflow: "auto" }}>
-          {children}
-        </main>
-      </div>
-    </div>
+    <ClientAppShell user={CURRENT_USER} title="Electronic Medical Record">
+      {children}
+    </ClientAppShell>
   );
-}
-
-// Server component wrapper for topbar
-function TopbarWrapper({ user }: { user: AppUser }) {
-  return <Topbar user={user} title="EMR Klinik" />;
 }

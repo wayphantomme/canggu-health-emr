@@ -99,8 +99,9 @@ export default function EncounterPage() {
 
       {/* Table */}
       <div className="card">
-        <table className="dense-table">
-          <thead>
+        <div className="table-responsive">
+          <table className="dense-table">
+            <thead>
             <tr>
               <th>No. Encounter</th>
               <th>Pasien</th>
@@ -126,8 +127,8 @@ export default function EncounterPage() {
                 .map((enc) => {
                   const s = STATUS_CONFIG[enc.status];
                   return (
-                    <tr key={enc.id} className={`status-tab ${s.tab}`}>
-                      <td>
+                    <tr key={enc.id}>
+                      <td className={`status-tab ${s.tab}`}>
                         <span className="font-mono" style={{ fontSize: "0.7rem", color: "var(--mono-tag)" }}>
                           {enc.noEncounter}
                         </span>
@@ -170,6 +171,7 @@ export default function EncounterPage() {
             )}
           </tbody>
         </table>
+        </div>
         <div style={{
           padding: "0.625rem 0.75rem",
           borderTop: "1px solid var(--line)",

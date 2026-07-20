@@ -97,8 +97,9 @@ export default function AppointmentPage() {
 
       {/* Table */}
       <div className="card">
-        <table className="dense-table">
-          <thead>
+        <div className="table-responsive">
+          <table className="dense-table">
+            <thead>
             <tr>
               <th>Jam</th>
               <th>Pasien</th>
@@ -121,8 +122,8 @@ export default function AppointmentPage() {
                 .map((apt) => {
                   const s = STATUS_CONFIG[apt.status];
                   return (
-                    <tr key={apt.id} className={`status-tab ${s.tab}`}>
-                      <td>
+                    <tr key={apt.id}>
+                      <td className={`status-tab ${s.tab}`}>
                         <span className="font-mono" style={{ fontSize: "1rem", fontWeight: 600, color: "var(--ink)" }}>
                           {apt.jam}
                         </span>
@@ -156,6 +157,7 @@ export default function AppointmentPage() {
             )}
           </tbody>
         </table>
+        </div>
         <div style={{
           padding: "0.625rem 0.75rem",
           borderTop: "1px solid var(--line)",

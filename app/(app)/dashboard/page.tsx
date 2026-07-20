@@ -80,7 +80,7 @@ export default function DashboardPage() {
         />
       </div>
 
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1.25rem" }}>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
         {/* Encounter Aktif */}
         <div className="card">
           <div className="card-header" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
@@ -145,44 +145,46 @@ export default function DashboardPage() {
             <span style={{ fontWeight: 600, fontSize: "0.875rem" }}>Appointment Hari Ini</span>
             <Link href="/appointment" className="btn btn-ghost btn-sm">Lihat Semua →</Link>
           </div>
-          <table className="dense-table">
-            <thead>
-              <tr>
-                <th>Jam</th>
-                <th>Pasien</th>
-                <th>Dokter</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              {todayAppointments.map((apt) => {
-                const statusMap: Record<string, { label: string; cls: string }> = {
-                  booked:     { label: "Booked",     cls: "badge-sage" },
-                  checked_in: { label: "Check-in",   cls: "badge-amber" },
-                  cancelled:  { label: "Batal",      cls: "badge-brick" },
-                  done:       { label: "Selesai",    cls: "badge-neutral" },
-                };
-                const s = statusMap[apt.status] || statusMap.booked;
-                return (
-                  <tr key={apt.id}>
-                    <td>
-                      <span className="font-mono" style={{ fontSize: "0.8rem", color: "var(--mono-tag)" }}>
-                        {apt.jam}
-                      </span>
-                    </td>
-                    <td>
-                      <div style={{ fontWeight: 500, fontSize: "0.8125rem" }}>{apt.patientNama}</div>
-                      <RMNumber noRM={apt.patientNoRM} />
-                    </td>
-                    <td style={{ fontSize: "0.75rem", color: "var(--ink-muted)" }}>
-                      {apt.dokterNama.replace("dr. ", "dr. ").split(",")[0].replace("dr. ", "")}
-                    </td>
-                    <td><span className={`badge ${s.cls}`}>{s.label}</span></td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
+          <div className="table-responsive">
+            <table className="dense-table">
+              <thead>
+                <tr>
+                  <th>Jam</th>
+                  <th>Pasien</th>
+                  <th>Dokter</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {todayAppointments.map((apt) => {
+                  const statusMap: Record<string, { label: string; cls: string }> = {
+                    booked:     { label: "Booked",     cls: "badge-sage" },
+                    checked_in: { label: "Check-in",   cls: "badge-amber" },
+                    cancelled:  { label: "Batal",      cls: "badge-brick" },
+                    done:       { label: "Selesai",    cls: "badge-neutral" },
+                  };
+                  const s = statusMap[apt.status] || statusMap.booked;
+                  return (
+                    <tr key={apt.id}>
+                      <td>
+                        <span className="font-mono" style={{ fontSize: "0.8rem", color: "var(--mono-tag)" }}>
+                          {apt.jam}
+                        </span>
+                      </td>
+                      <td>
+                        <div style={{ fontWeight: 500, fontSize: "0.8125rem" }}>{apt.patientNama}</div>
+                        <RMNumber noRM={apt.patientNoRM} />
+                      </td>
+                      <td style={{ fontSize: "0.75rem", color: "var(--ink-muted)" }}>
+                        {apt.dokterNama.replace("dr. ", "dr. ").split(",")[0].replace("dr. ", "")}
+                      </td>
+                      <td><span className={`badge ${s.cls}`}>{s.label}</span></td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
         </div>
 
         {/* SatuSehat Status */}

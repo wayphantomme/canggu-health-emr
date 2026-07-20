@@ -117,68 +117,70 @@ export default async function PasienDetailPage({ params }: Props) {
           <span style={{ fontWeight: 600, fontSize: "0.875rem" }}>Riwayat Encounter</span>
           <button className="btn btn-primary btn-sm">+ Buat Encounter</button>
         </div>
-        <table className="dense-table">
-          <thead>
-            <tr>
-              <th>No. Encounter</th>
-              <th>Tanggal</th>
-              <th>Tipe</th>
-              <th>Dokter</th>
-              <th>Keluhan</th>
-              <th>Status</th>
-              <th>Sync</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {encounters.length === 0 ? (
+        <div className="table-responsive">
+          <table className="dense-table">
+            <thead>
               <tr>
-                <td colSpan={8} style={{ textAlign: "center", padding: "2rem", color: "var(--ink-muted)" }}>
-                  Belum ada encounter untuk pasien ini
-                </td>
+                <th>No. Encounter</th>
+                <th>Tanggal</th>
+                <th>Tipe</th>
+                <th>Dokter</th>
+                <th>Keluhan</th>
+                <th>Status</th>
+                <th>Sync</th>
+                <th></th>
               </tr>
-            ) : (
-              encounters.map((enc) => {
-                const statusConfig = {
-                  draft:       { label: "Draft",       cls: "badge-neutral", tab: "draft" },
-                  in_progress: { label: "In Progress", cls: "badge-amber",   tab: "progress" },
-                  finished:    { label: "Selesai",     cls: "badge-sage",    tab: "finished" },
-                };
-                const s = statusConfig[enc.status];
-                return (
-                  <tr key={enc.id} className={`status-tab ${s.tab}`}>
-                    <td>
-                      <span className="font-mono" style={{ fontSize: "0.75rem", color: "var(--mono-tag)" }}>
-                        {enc.noEncounter}
-                      </span>
-                    </td>
-                    <td style={{ fontSize: "0.8rem" }}>{formatTgl(enc.tanggal)}</td>
-                    <td>
-                      <span className="badge badge-neutral">
-                        {enc.tipe === "clinic_visit" ? "Clinic" : "Home"}
-                      </span>
-                    </td>
-                    <td style={{ fontSize: "0.8rem", color: "var(--ink-muted)" }}>
-                      {enc.dokterNama.split(",")[0]}
-                    </td>
-                    <td style={{ fontSize: "0.8rem", maxWidth: 200 }}>
-                      <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", display: "block" }}>
-                        {enc.keluhan}
-                      </span>
-                    </td>
-                    <td><span className={`badge ${s.cls}`}>{s.label}</span></td>
-                    <td><SyncStatusBadge status={enc.syncStatus} /></td>
-                    <td>
-                      <Link href={`/encounter/${enc.id}`} className="btn btn-ghost btn-sm">
-                        Buka →
-                      </Link>
-                    </td>
-                  </tr>
-                );
-              })
-            )}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {encounters.length === 0 ? (
+                <tr>
+                  <td colSpan={8} style={{ textAlign: "center", padding: "2rem", color: "var(--ink-muted)" }}>
+                    Belum ada encounter untuk pasien ini
+                  </td>
+                </tr>
+              ) : (
+                encounters.map((enc) => {
+                  const statusConfig: Record<string, { label: string; cls: string; tab: string }> = {
+                    draft:       { label: "Draft",       cls: "badge-neutral", tab: "draft" },
+                    in_progress: { label: "In Progress", cls: "badge-amber",   tab: "progress" },
+                    finished:    { label: "Selesai",     cls: "badge-sage",    tab: "finished" },
+                  };
+                  const s = statusConfig[enc.status] || statusConfig.draft;
+                  return (
+                    <tr key={enc.id}>
+                      <td className={`status-tab ${s.tab}`}>
+                        <span className="font-mono" style={{ fontSize: "0.75rem", color: "var(--mono-tag)" }}>
+                          {enc.noEncounter}
+                        </span>
+                      </td>
+                      <td style={{ fontSize: "0.8rem", whiteSpace: "nowrap" }}>{formatTgl(enc.tanggal)}</td>
+                      <td>
+                        <span className="badge badge-neutral" style={{ fontSize: "0.6875rem" }}>
+                          {enc.tipe === "clinic_visit" ? "Clinic" : "Home"}
+                        </span>
+                      </td>
+                      <td style={{ fontSize: "0.8rem", color: "var(--ink-muted)" }}>
+                        {enc.dokterNama.split(",")[0]}
+                      </td>
+                      <td style={{ fontSize: "0.8rem", maxWidth: 200 }}>
+                        <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", display: "block" }}>
+                          {enc.keluhan}
+                        </span>
+                      </td>
+                      <td><span className={`badge ${s.cls}`}>{s.label}</span></td>
+                      <td><SyncStatusBadge status={enc.syncStatus} /></td>
+                      <td>
+                        <Link href={`/encounter/${enc.id}`} className="btn btn-ghost btn-sm">
+                          Buka →
+                        </Link>
+                      </td>
+                    </tr>
+                  );
+                })
+              )}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );

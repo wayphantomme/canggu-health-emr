@@ -341,18 +341,41 @@ textarea.form-input {
    Sidebar
 ───────────────────────────────────────────── */
 .sidebar {
-  width: 220px;
+  width: var(--sidebar-width, 220px);
   min-height: 100vh;
   background: var(--surface);
   border-right: 1px solid var(--line);
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
+  transition: width 0.2s ease-in-out;
+  position: relative;
+  z-index: 10;
+}
+
+.sidebar.collapsed {
+  --sidebar-width: 72px;
+}
+
+.sidebar.collapsed .hide-on-collapse {
+  display: none !important;
+}
+
+.sidebar.collapsed .sidebar-item {
+  justify-content: center;
+  padding: 0.625rem;
+}
+
+.sidebar.collapsed .sidebar-item .nav-icon {
+  margin-right: 0;
 }
 
 .sidebar-logo {
   padding: 1rem 1.125rem;
   border-bottom: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .sidebar-logo .logo-title {
@@ -373,6 +396,7 @@ textarea.form-input {
   flex: 1;
   padding: 0.5rem 0;
   overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .sidebar-section {
@@ -383,6 +407,7 @@ textarea.form-input {
   letter-spacing: 0.08em;
   color: var(--ink-muted);
   margin-top: 0.5rem;
+  white-space: nowrap;
 }
 
 .sidebar-item {
@@ -396,6 +421,8 @@ textarea.form-input {
   border-left: 3px solid transparent;
   transition: all 0.1s;
   text-decoration: none;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .sidebar-item:hover {
@@ -601,5 +628,46 @@ textarea.form-input {
 .text-amber     { color: var(--amber); }
 .text-brick     { color: var(--brick); }
 .bg-paper       { background: var(--paper); }
-.bg-surface     { background: var(--surface); }
 .border-line    { border-color: var(--line); }
+
+/* ─────────────────────────────────────────────
+   Responsive Utilities
+───────────────────────────────────────────── */
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Sidebar Drawer for Mobile */
+@media (max-width: 768px) {
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 50;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+  }
+  .sidebar.open {
+    transform: translateX(0);
+  }
+  .sidebar-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 40;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease-in-out;
+  }
+  .sidebar-backdrop.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+

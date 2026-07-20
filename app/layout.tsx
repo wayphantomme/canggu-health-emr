@@ -22,8 +22,8 @@ const sourceSerif4 = Source_Serif_4({
 
 export const metadata: Metadata = {
   title: {
-    default: "EMR Klinik — Rekam Medis Elektronik",
-    template: "%s | EMR Klinik",
+    default: "Canggu Health EMR - Electronic Medical Record",
+    template: "%s | Canggu Health EMR",
   },
   description:
     "Sistem rekam medis elektronik terintegrasi untuk klinik dan rumah sakit. Kelola pasien, encounter, resep, lab, dan sinkronisasi SatuSehat dalam satu platform.",
